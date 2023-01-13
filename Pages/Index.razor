@@ -1,0 +1,32 @@
+﻿@page "/"
+@namespace BBlazor
+@using BBlazor.Shared
+
+
+<SignaturePad OnResult="OnResult" EnableChangeColorBtn="false" Responsive="true" BackgroundColor="rgba(0,0,0,0)" SignAboveLabel=""  />
+<div class="row">
+   
+    <div class="col-12 col-sm-6">
+        @if (Result != null)
+        {
+            <div class="form-label">Your signature</div>
+            <img src="@Result" style="height: 240px; width: auto;" />
+            <div class="form-label">Your signature in base64</div>
+            <textarea class="form-control" rows="4" @bind="Result" />
+        }
+    </div>
+</div>
+
+
+@code{
+     public string? Result { get; set; }
+
+     private Task OnResult(string result)
+    {
+        Result = result;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    
+}
